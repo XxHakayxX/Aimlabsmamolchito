@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SANRIO AIM LAB 🎯✨ Edición para mi amorcito</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Orbitron:wght@600;700;800;900&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        valBg: '#0f0a19',
+                        valPanel: '#191129',
+                        valCard: '#231738',
+                        valBorder: '#432c68',
+                        kuromiPink: '#ff4da6',
+                        melodyPink: '#ff9ebb',
+                        kittyRed: '#ff3b5c',
+                        radiantCyan: '#2ef2d8',
+                        radiantGold: '#ffd166',
+                        lilacGlow: '#c792ea'
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        display: ['Quicksand', 'sans-serif'],
+                        tac: ['Orbitron', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0f0a19;
+            color: #fdf7ff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Fondo táctico estilo Valorant + Sanrio Pastel Goth */
+        .tactical-arena-bg {
+            background-color: #110b1d;
+            background-image:
+                radial-gradient(circle at 50% 50%, rgba(255, 77, 166, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 12% 18%, rgba(46, 242, 216, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 88% 82%, rgba(199, 146, 234, 0.08) 0%, transparent 40%),
+                linear-gradient(rgba(199, 146, 234, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(199, 146, 234, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+        }
+
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(35, 23, 56, 0.92), rgba(21, 13, 35, 0.96));
+            border: 1.5px solid rgba(199, 146, 234, 0.25);
+            box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        /* Cursores personalizados de Valorant */
+        .crosshair-dot {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="3.2" fill="%232ef2d8" stroke="%230f0a19" stroke-width="1.5"/><circle cx="14" cy="14" r="9" fill="none" stroke="%23ff4da6" stroke-width="1" stroke-opacity="0.55"/></svg>') 14 14, crosshair;
+        }
+
+        .crosshair-pro {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g stroke="%230f0a19" stroke-width="2.6" stroke-linecap="square"><line x1="16" y1="5" x2="16" y2="12"/><line x1="16" y1="20" x2="16" y2="27"/><line x1="5" y1="16" x2="12" y2="16"/><line x1="20" y1="16" x2="27" y2="16"/></g><g stroke="%232ef2d8" stroke-width="1.6" stroke-linecap="square"><line x1="16" y1="5" x2="16" y2="12"/><line x1="16" y1="20" x2="16" y2="27"/><line x1="5" y1="16" x2="12" y2="16"/><line x1="20" y1="16" x2="27" y2="16"/></g><circle cx="16" cy="16" r="1.3" fill="%23ff4da6"/></svg>') 16 16, crosshair;
+        }
+
+        .crosshair-sanrio {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M9 12 C6 10, 6 22, 9 20 L14 16 Z" fill="%23ff4da6" stroke="%23ffffff" stroke-width="1"/><path d="M23 12 C26 10, 26 22, 23 20 L18 16 Z" fill="%23ff4da6" stroke="%23ffffff" stroke-width="1"/><circle cx="16" cy="16" r="2.8" fill="%232ef2d8" stroke="%230f0a19" stroke-width="1.2"/></svg>') 16 16, crosshair;
+        }
+
+        /* Animación de aparición y explosión de objetivos */
+        @keyframes targetSpawn {
+            0% { transform: translate(-50%, -50%) scale(0.25); opacity: 0; }
+            70% { transform: translate(-50%, -50%) scale(1.06); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .target-node {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            animation: targetSpawn 0.09s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            touch-action: manipulation;
+            will-change: left, top, transform;
+        }
+
+        @keyframes floatFeedback {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.85); }
+            25% { opacity: 1; transform: translate(-50%, -75%) scale(1.05); }
+            100% { opacity: 0; transform: translate(-50%, -135%) scale(0.92); }
+        }
+
+        .floating-feedback {
+            position: absolute;
+            pointer-events: none;
+            animation: floatFeedback 0.78s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            z-index: 35;
+        }
+
+        @keyframes hitRipple {
+            0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0.95; }
+            100% { transform: translate(-50%, -50%) scale(1.85); opacity: 0; }
+        }
+
+        .hit-ripple {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 9999px;
+            animation: hitRipple 0.36s ease-out forwards;
+            z-index: 30;
+        }
+
+        /* Pulso de trampa (Baku Decoy) */
+        @keyframes decoyPulse {
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 59, 92, 0.85)); }
+            50% { filter: drop-shadow(0 0 16px rgba(255, 59, 92, 1)); }
+        }
+        .decoy-glow {
+            animation: decoyPulse 0.45s infinite ease-in-out;
+        }
+
+        /* Scrollbar estética */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0f0a19; }
+        ::-webkit-scrollbar-thumb { background: #432c68; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ff4da6; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen font-sans selection:bg-kuromiPink selection:text-white">
+
+    <!-- ===================================================== -->
+    <!-- CABECERA TÁCTICA & MÉTRICAS EN VIVO                   -->
+    <!-- ===================================================== -->
+    <header class="sticky top-0 z-30 bg-valBg/95 backdrop-blur-md border-b border-valBorder/80 px-3 py-2 shadow-xl">
+        <div class="max-w-7xl mx-auto flex flex-col gap-2">
+            
+            <!-- Fila Superior: Título + Controles de Mira y Configuración -->
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                    <!-- Icono del Header con los 3 personajes -->
+                    <div class="w-10 h-10 rounded-xl bg-valCard border border-kuromiPink/60 flex items-center justify-center shadow-md shrink-0">
+                        <span class="text-xl">🎯</span>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <h1 class="font-tac font-black text-sm sm:text-base md:text-lg tracking-wider text-white">
+                                SANRIO <span class="text-kuromiPink">AIM LABS</span> ✨
+                            </h1>
+                            <span id="active-diff-pill" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-kuromiPink/20 text-kuromiPink border border-kuromiPink/50">
+                                Normal ⚡
+                            </span>
+                        </div>
+                        <p class="text-[11px] text-melodyPink/90 font-semibold leading-tight">
+                            Entrenamiento de reflejos para <strong class="text-white">mi bb</strong> — aunque ya eres buenísima en Valo 💜
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Controles Rápidos: Mira, Nivel, Sonido -->
+                <div class="flex items-center gap-1.5 flex-wrap">
+                    <!-- Selector de Retícula (Crosshair) -->
+                    <div class="hidden sm:flex items-center bg-valPanel rounded-xl p-0.5 border border-valBorder text-[11px] font-bold">
+                        <button onclick="setCrosshair('pro')" id="ch-btn-pro" class="px-2 py-1 rounded-lg bg-kuromiPink text-white transition">
+                            ✚ Cruz Pro
+                        </button>
+                        <button onclick="setCrosshair('dot')" id="ch-btn-dot" class="px-2 py-1 rounded-lg text-lilacGlow hover:text-white transition">
+                            ⦿ Punto Radiant
+                        </button>
+                        <button onclick="setCrosshair('sanrio')" id="ch-btn-sanrio" class="px-2 py-1 rounded-lg text-lilacGlow hover:text-white transition">
+                            🎀 Moñito
+                        </button>
+                    </div>
+
+                    <button id="open-config-btn" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-kuromiPink to-purple-600 hover:opacity-95 text-white text-xs font-extrabold shadow-md transition active:scale-95 flex items-center gap-1">
+                        <span>⚙️ Nivel / Modo</span>
+                    </button>
+
+                    <button id="restart-quick-btn" title="Reiniciar Ronda" class="px-2.5 py-1.5 rounded-xl bg-valCard hover:bg-valBorder text-white text-xs font-bold border border-valBorder transition active:scale-95">
+                        🔄
+                    </button>
+
+                    <button id="sound-toggle-btn" title="Sonido Valorant" class="px-2.5 py-1.5 rounded-xl bg-valCard hover:bg-valBorder text-white text-xs font-bold border border-valBorder transition active:scale-95">
+                        🔊
+                    </button>
+                </div>
+            </div>
+
+            <!-- Fila Inferior: 5 Indicadores de Rendimiento en Tiempo Real -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-1.5 sm:gap-2">
+                
+                <!-- 1. Reacción Actual (Último Flick) -->
+                <div class="glass-panel rounded-xl px-3 py-1.5 flex items-center justify-between">
+                    <div>
+                        <div class="text-[9px] font-bold uppercase tracking-wider text-lilacGlow">Último Flick</div>
+                        <div id="hud-last-ms" class="font-tac font-black text-base sm:text-lg text-radiantCyan">
+                            --- ms
+                        </div>
+                    </div>
+                    <span id="hud-ms-badge" class="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-radiantCyan/15 text-radiantCyan border border-radiantCyan/30">
+                        LISTA
+                    </span>
+                </div>
+
+                <!-- 2. Promedio de Reacción (ms) -->
+                <div class="glass-panel rounded-xl px-3 py-1.5 flex items-center justify-between">
+                    <div>
+                        <div class="text-[9px] font-bold uppercase tracking-wider text-lilacGlow">Promedio Reacción</div>
+                        <div id="hud-avg-ms" class="font-tac font-black text-base sm:text-lg text-white">
+                            --- ms
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-[9px] text-melodyPink/75">Mejor</div>
+                        <div id="hud-best-ms" class="font-tac font-bold text-xs text-radiantGold">---</div>
+                    </div>
+                </div>
+
+                <!-- 3. Precisión y Headshot % -->
+                <div class="glass-panel rounded-xl px-3 py-1.5 flex items-center justify-between">
+                    <div>
+                        <div class="text-[9px] font-bold uppercase tracking-wider text-lilacGlow">Precisión Aim</div>
+                        <div id="hud-acc" class="font-tac font-black text-base sm:text-lg text-white">
+                            100%
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-[9px] text-kuromiPink font-extrabold">🎯 Vandal HS%</div>
+                        <div id="hud-hs" class="font-tac font-bold text-xs text-kuromiPink">0%</div>
+                    </div>
+                </div>
+
+                <!-- 4. Objetivos Restantes / Progreso -->
+                <div class="glass-panel rounded-xl px-3 py-1.5 flex items-center justify-between">
+                    <div>
+                        <div class="text-[9px] font-bold uppercase tracking-wider text-lilacGlow">Objetivos</div>
+                        <div class="font-tac font-black text-base sm:text-lg text-white">
+                            <span id="hud-hits">0</span><span class="text-xs text-lilacGlow/70">/<span id="hud-total">25</span></span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-[9px] text-melodyPink/75">Racha</div>
+                        <div id="hud-streak" class="font-tac font-bold text-xs text-radiantCyan">0 🔥</div>
+                    </div>
+                </div>
+
+                <!-- 5. Puntuación Radiant -->
+                <div class="col-span-2 sm:col-span-1 glass-panel rounded-xl px-3 py-1.5 flex items-center justify-between">
+                    <div>
+                        <div class="text-[9px] font-bold uppercase tracking-wider text-radiantGold">Puntos Radiant</div>
+                        <div id="hud-score" class="font-tac font-black text-base sm:text-lg text-radiantGold">
+                            0
+                        </div>
+                    </div>
+                    <span id="hud-mode-tag" class="text-[10px] font-extrabold px-2 py-0.5 rounded-lg bg-valBg text-melodyPink border border-valBorder">
+                        Flicks
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================================================== -->
+    <!-- ARENA PERIFÉRICA DE ENTRENAMIENTO Maryorit (PANTALLA COMPLETA) -->
+    <!-- ===================================================== -->
+    <main class="flex-1 flex flex-col p-2 sm:p-3 max-w-7xl w-full mx-auto">
+        
+        <div id="arena-container" class="relative flex-1 min-h-[470px] sm:min-h-[560px] w-full rounded-3xl tactical-arena-bg border-2 border-valBorder/90 shadow-2xl overflow-hidden crosshair-pro">
+            
+            <!-- Esquinas Decorativas Tácticas para Referencia Periférica -->
+            <div class="pointer-events-none absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-kuromiPink/45 rounded-tl-lg"></div>
+            <div class="pointer-events-none absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-radiantCyan/45 rounded-tr-lg"></div>
+            <div class="pointer-events-none absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-radiantCyan/45 rounded-bl-lg"></div>
+            <div class="pointer-events-none absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-kuromiPink/45 rounded-br-lg"></div>
+
+            <!-- Etiquetas de Zonas Periféricas Sutiles -->
+            <div class="pointer-events-none absolute top-3 left-1/2 -translate-x-1/2 text-[10px] font-tac tracking-widest uppercase text-lilacGlow/35">
+                ZONA PERIFÉRICA SUPERIOR • HELLO KITTY • KUROMI • MY MELODY
+            </div>
+
+            <!-- Punto de Referencia Central + Radar Direccional de Flicks -->
+            <div id="center-radar-anchor" class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 rounded-full border border-dashed border-lilacGlow/20 flex items-center justify-center">
+                <div class="w-2 h-2 rounded-full bg-lilacGlow/25"></div>
+                <!-- Flecha indicadora hacia dónde apareció el objetivo periférico -->
+                <div id="radar-arrow-wrapper" class="hidden absolute inset-0 flex items-center justify-center transition-transform duration-75">
+                    <div class="w-full h-full relative">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-radiantCyan font-black text-sm drop-shadow-[0_0_6px_rgba(46,242,216,0.9)]">
+                            ▲
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Capa de Objetivos Activos (Hello Kitty, Kuromi, My Melody, Trampas) -->
+            <div id="targets-layer" class="absolute inset-0 z-20"></div>
+
+            <!-- Capa de Efectos Flotantes (ms, Headshots, Mensajes de Amor) -->
+            <div id="fx-layer" class="absolute inset-0 pointer-events-none z-30"></div>
+
+            <!-- Banner Inferior Estilo Killfeed de Valorant (1K, 2K, 3K, 4K, ACE!) -->
+            <div class="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1">
+                <div id="love-cheer-banner" class="opacity-0 transition-all duration-300 px-3.5 py-1 rounded-full bg-valCard/95 border border-kuromiPink text-xs sm:text-sm font-extrabold text-white shadow-lg">
+                    💜 ¡Qué buenos reflejos mi amor!
+                </div>
+                <div id="kill-banner-pips" class="flex items-center gap-1.5 mt-1">
+                    <!-- Pips de racha estilo Valorant -->
+                </div>
+            </div>
+
+            <!-- Overlay de Cuenta Regresiva (3, 2, 1, ¡YA!) -->
+            <div id="countdown-overlay" class="hidden absolute inset-0 z-40 bg-valBg/80 backdrop-blur-sm flex flex-col items-center justify-center text-center p-4">
+                <div class="text-xs font-tac uppercase tracking-widest text-melodyPink mb-2">
+                    Preparando Arena para Canelita 💜
+                </div>
+                <div id="countdown-number" class="font-tac font-black text-6xl sm:text-7xl text-radiantCyan drop-shadow-[0_0_25px_rgba(46,242,216,0.8)]">
+                    3
+                </div>
+                <p id="countdown-tip" class="text-xs sm:text-sm text-lilacGlow mt-3 max-w-md">
+                    Apunta al centro del personaje para lograr <strong class="text-kuromiPink">🎯 HEADSHOT (Un Tap)</strong>
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Barra Inferior de Consejos Tácticos y Leyenda de Personajes -->
+        <div class="mt-2.5 grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+            <div class="glass-panel rounded-xl p-2 flex items-center gap-2">
+                <div id="legend-kitty" class="w-8 h-8 shrink-0"></div>
+                <div>
+                    <div class="font-extrabold text-white leading-none">Hello Kitty 🎀</div>
+                    <div class="text-[10px] text-lilacGlow/80">Objetivo de velocidad • Centro = HS</div>
+                </div>
+            </div>
+            <div class="glass-panel rounded-xl p-2 flex items-center gap-2">
+                <div id="legend-kuromi" class="w-8 h-8 shrink-0"></div>
+                <div>
+                    <div class="font-extrabold text-kuromiPink leading-none">Kuromi 💜</div>
+                    <div class="text-[10px] text-lilacGlow/80">Flick periférico • Bono de puntos</div>
+                </div>
+            </div>
+            <div class="glass-panel rounded-xl p-2 flex items-center gap-2">
+                <div id="legend-melody" class="w-8 h-8 shrink-0"></div>
+                <div>
+                    <div class="font-extrabold text-melodyPink leading-none">My Melody 🍓</div>
+                    <div class="text-[10px] text-lilacGlow/80">Micro-ajuste preciso</div>
+                </div>
+            </div>
+            <div class="glass-panel rounded-xl p-2 flex items-center gap-2 border-kittyRed/40">
+                <div id="legend-decoy" class="w-8 h-8 shrink-0"></div>
+                <div>
+                    <div class="font-extrabold text-kittyRed leading-none">Calaverita Trampa 💀</div>
+                    <div class="text-[10px] text-lilacGlow/80">¡No dispares! Resta puntos (Difícil+)</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ===================================================== -->
+    <!-- MODAL DE CONFIGURACIÓN: 7 DIFICULTADES + 3 MODOS      -->
+    <!-- ===================================================== -->
+    <div id="setup-modal" class="fixed inset-0 z-50 bg-valBg/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="glass-panel rounded-3xl max-w-3xl w-full p-4 sm:p-6 border-2 border-kuromiPink/60 shadow-2xl my-auto">
+            
+            <!-- Encabezado con los 3 Personajes Sanrio -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pb-4 border-b border-valBorder">
+                <div class="flex items-center gap-3 text-center sm:text-left">
+                    <div class="flex -space-x-2">
+                        <div id="modal-avatar-kitty" class="w-12 h-12 rounded-2xl bg-valBg border-2 border-kittyRed p-1 shadow-lg"></div>
+                        <div id="modal-avatar-kuromi" class="w-12 h-12 rounded-2xl bg-valBg border-2 border-kuromiPink p-1 shadow-lg"></div>
+                        <div id="modal-avatar-melody" class="w-12 h-12 rounded-2xl bg-valBg border-2 border-melodyPink p-1 shadow-lg"></div>
+                    </div>
+                    <div>
+                        <span class="inline-block px-2.5 py-0.5 rounded-full bg-kuromiPink/20 text-kuromiPink border border-kuromiPink/40 text-[10px] font-black uppercase tracking-wider">
+                            Edición Valorant para mi bb 💜
+                        </span>
+                        <h2 class="font-display font-black text-xl sm:text-2xl text-white">
+                            Configura tu Entrenamiento de Reflejos
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASO 1: SELECCIONA EL MODO DE JUEGO DE VALORANT -->
+            <div class="mt-4">
+                <label class="text-[11px] font-tac font-bold uppercase tracking-wider text-radiantCyan block mb-2">
+                    1. Modo de Entrenamiento Táctico (Estilo Aim Lab / Valorant):
+                </label>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5" id="modes-grid">
+                    <!-- Generado dinámicamente -->
+                </div>
+            </div>
+
+            <!-- PASO 2: LOS 7 NIVELES DE DIFICULTAD -->
+            <div class="mt-4">
+                <div class="flex items-center justify-between mb-2">
+                    <label class="text-[11px] font-tac font-bold uppercase tracking-wider text-kuromiPink">
+                        2. Elige el Nivel de Dificultad (7 Niveles):
+                    </label>
+                    <span class="text-[11px] text-melodyPink font-semibold">
+                        Los objetivos aparecen por todos los bordes de la pantalla
+                    </span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2" id="difficulties-grid">
+                    <!-- 7 dificultades generadas dinámicamente -->
+                </div>
+
+                <!-- Tarjeta de Detalles de la Dificultad Seleccionada -->
+                <div id="diff-details-box" class="mt-2.5 bg-valBg/90 rounded-2xl p-3 border border-valBorder flex flex-wrap items-center justify-between gap-2 text-xs">
+                    <!-- Detalles dinámicos -->
+                </div>
+            </div>
+
+            <!-- Botón de Inicio -->
+            <div class="mt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div class="text-xs text-lilacGlow/85 flex items-center gap-2">
+                    <span>💡</span>
+                    <span>Dispara al <strong class="text-radiantCyan">círculo central</strong> de cada Sanrio para hacer <strong class="text-kuromiPink">Headshot (Un Tap)</strong>.</span>
+                </div>
+                <button id="start-training-btn" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-kuromiPink via-purple-600 to-radiantCyan text-white font-display font-black text-base shadow-xl hover:opacity-95 active:scale-95 transition shrink-0">
+                    🎯 ¡Iniciar Entrenamiento!
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- MODAL DE RESULTADOS Y REPORTE RADIANT PARA MARYORIT   -->
+    <!-- ===================================================== -->
+    <div id="results-modal" class="hidden fixed inset-0 z-50 bg-valBg/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="glass-panel rounded-3xl max-w-xl w-full p-5 sm:p-6 border-2 border-radiantCyan shadow-2xl text-center my-auto">
+            
+            <!-- Insignia de Rango Obtenido -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-radiantCyan/15 border border-radiantCyan text-radiantCyan text-xs font-black uppercase tracking-wider mb-2">
+                <span>🏆 MVP DE LA PARTIDA: Canelita</span>
+            </div>
+
+            <h2 id="res-rank-title" class="font-tac font-black text-2xl sm:text-3xl text-white mb-1">
+                RADIANT SUPREMA 👑
+            </h2>
+            <p id="res-subtitle" class="text-xs sm:text-sm text-melodyPink font-bold mb-4">
+                Nivel: Normal • Modo Flicks Periféricos
+            </p>
+
+            <!-- Cuadrícula de Estadísticas de Reacción -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-4 text-left">
+                <div class="bg-valBg/90 p-3 rounded-2xl border border-valBorder">
+                    <div class="text-[10px] font-bold uppercase text-lilacGlow">Reacción Promedio</div>
+                    <div id="res-avg-ms" class="font-tac font-black text-lg sm:text-xl text-radiantCyan mt-0.5">245 ms</div>
+                </div>
+                <div class="bg-valBg/90 p-3 rounded-2xl border border-valBorder">
+                    <div class="text-[10px] font-bold uppercase text-lilacGlow">Flick Más Rápido</div>
+                    <div id="res-best-ms" class="font-tac font-black text-lg sm:text-xl text-radiantGold mt-0.5">168 ms</div>
+                </div>
+                <div class="bg-valBg/90 p-3 rounded-2xl border border-valBorder">
+                    <div class="text-[10px] font-bold uppercase text-lilacGlow">Precisión Final</div>
+                    <div id="res-acc" class="font-tac font-black text-lg sm:text-xl text-white mt-0.5">94%</div>
+                </div>
+                <div class="bg-valBg/90 p-3 rounded-2xl border border-valBorder">
+                    <div class="text-[10px] font-bold uppercase text-kuromiPink">🎯 Headshots (HS%)</div>
+                    <div id="res-hs" class="font-tac font-black text-lg sm:text-xl text-kuromiPink mt-0.5">68%</div>
+                </div>
+            </div>
+
+            <!-- Gráfico de Tiempos de Reacción por Disparo -->
+            <div class="bg-valBg/90 rounded-2xl p-3 border border-valBorder mb-4 text-left">
+                <div class="flex items-center justify-between text-[11px] font-bold text-lilacGlow mb-2">
+                    <span>📊 Historial de Tiempos de Reacción (ms por cada objetivo):</span>
+                    <span id="res-score-pill" class="text-radiantGold font-tac">0 pts</span>
+                </div>
+                <div id="res-chart-bars" class="h-16 flex items-end gap-1 pt-2 px-1">
+                    <!-- Barras generadas por JS -->
+                </div>
+            </div>
+
+            <!-- Dedicatoria Romántica Especial -->
+            <div class="bg-gradient-to-r from-kuromiPink/15 via-valCard to-radiantCyan/15 rounded-2xl p-3.5 border border-kuromiPink/40 mb-5">
+                <p id="res-love-note" class="text-xs sm:text-sm text-white font-semibold leading-relaxed">
+                    "Para la jugadora más pro y más hermosa del mundo."
+                </p>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="grid grid-cols-2 gap-3">
+                <button id="res-change-diff-btn" class="py-3 px-4 rounded-2xl bg-valCard hover:bg-valBorder border border-valBorder text-white font-extrabold text-xs sm:text-sm transition active:scale-95">
+                    ⚙️ Cambiar Dificultad
+                </button>
+                <button id="res-play-again-btn" class="py-3 px-4 rounded-2xl bg-gradient-to-r from-kuromiPink to-purple-600 text-white font-extrabold text-xs sm:text-sm shadow-lg hover:opacity-95 transition active:scale-95">
+                    🔥 ¡Jugar Otra Ronda!
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- LÓGICA DEL ENTRENADOR DE PUNTERÍA Y REFLEJOS          -->
+    <!-- ===================================================== -->
+    <script>
+        /**
+         * 1. ARTE VECTORIAL SVG DE HELLO KITTY, KUROMI, MY MELODY Y TRAMPA
+         * Cada objetivo incluye su anillo central de Headshot (Un Tap)
+         */
+        const CHARACTER_SVGS = {
+            kitty: (showBullseye = true) => `
+                <svg viewBox="0 0 100 100" class="w-full h-full overflow-visible drop-shadow-[0_4px_10px_rgba(255,255,255,0.28)]">
+                    <!-- Halo exterior táctico -->
+                    <circle cx="50" cy="52" r="44" fill="rgba(255, 59, 92, 0.15)" stroke="#ff3b5c" stroke-width="2"/>
+                    <!-- Orejas blancas -->
+                    <path d="M20 42 L15 14 L42 26 Z" fill="#ffffff" stroke="#1f162b" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M80 42 L85 14 L58 26 Z" fill="#ffffff" stroke="#1f162b" stroke-width="3" stroke-linejoin="round"/>
+                    <!-- Cara de Hello Kitty -->
+                    <ellipse cx="50" cy="55" rx="37" ry="30" fill="#ffffff" stroke="#1f162b" stroke-width="3"/>
+                    <!-- Bigotes -->
+                    <line x1="8" y1="48" x2="21" y2="50" stroke="#1f162b" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="6" y1="56" x2="20" y2="56" stroke="#1f162b" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="9" y1="64" x2="22" y2="62" stroke="#1f162b" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="92" y1="48" x2="79" y2="50" stroke="#1f162b" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="94" y1="56" x2="80" y2="56" stroke="#1f162b" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="91" y1="64" x2="78" y2="62" stroke="#1f162b" stroke-width="3" stroke-linecap="round"/>
+                    <!-- Ojos y nariz amarilla -->
+                    <ellipse cx="35" cy="54" rx="3.4" ry="4.6" fill="#1f162b"/>
+                    <ellipse cx="65" cy="54" rx="3.4" ry="4.6" fill="#1f162b"/>
+                    <ellipse cx="50" cy="60" rx="4.5" ry="3.3" fill="#ffd166" stroke="#1f162b" stroke-width="2"/>
+                    <!-- Famoso Moño Rojo en la oreja derecha -->
+                    <g transform="translate(68, 25) rotate(14)">
+                        <path d="M-14 -8 C-20 -12, -20 12, -14 8 L-3 2 L-3 -2 Z" fill="#ff3b5c" stroke="#1f162b" stroke-width="2.5"/>
+                        <path d="M14 -8 C20 -12, 20 12, 14 8 L3 2 L3 -2 Z" fill="#ff3b5c" stroke="#1f162b" stroke-width="2.5"/>
+                        <circle cx="0" cy="0" r="5.5" fill="#ff3b5c" stroke="#1f162b" stroke-width="2.5"/>
+                    </g>
+                    ${showBullseye ? `
+                        <!-- Anillo de Headshot (Centro 40%) -->
+                        <circle cx="50" cy="52" r="17" fill="rgba(46, 242, 216, 0.12)" stroke="#2ef2d8" stroke-width="1.8" stroke-dasharray="4 2"/>
+                        <circle cx="50" cy="52" r="3.5" fill="#2ef2d8"/>
+                    ` : ''}
+                </svg>
+            `,
+            kuromi: (showBullseye = true) => `
+                <svg viewBox="0 0 100 100" class="w-full h-full overflow-visible drop-shadow-[0_4px_12px_rgba(255,77,166,0.45)]">
+                    <circle cx="50" cy="52" r="44" fill="rgba(255, 77, 166, 0.16)" stroke="#ff4da6" stroke-width="2"/>
+                    <!-- Orejas de bufón negras -->
+                    <path d="M22 44 L10 10 L43 30 Z" fill="#181124" stroke="#ff4da6" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M78 44 L90 10 L57 30 Z" fill="#181124" stroke="#ff4da6" stroke-width="2.5" stroke-linejoin="round"/>
+                    <circle cx="10" cy="10" r="5" fill="#ff4da6"/>
+                    <circle cx="90" cy="10" r="5" fill="#ff4da6"/>
+                    <!-- Capucha de Kuromi -->
+                    <ellipse cx="50" cy="56" rx="35" ry="30" fill="#181124" stroke="#c792ea" stroke-width="2.5"/>
+                    <!-- Rostro blanco -->
+                    <ellipse cx="50" cy="62" rx="25" ry="19" fill="#ffffff"/>
+                    <!-- Calaverita Rosa en la frente -->
+                    <circle cx="50" cy="36" r="7.5" fill="#ff4da6"/>
+                    <circle cx="47.5" cy="35.5" r="1.6" fill="#181124"/>
+                    <circle cx="52.5" cy="35.5" r="1.6" fill="#181124"/>
+                    <!-- Ojos traviesos -->
+                    <ellipse cx="38" cy="60" rx="3.3" ry="4.5" fill="#181124"/>
+                    <ellipse cx="62" cy="60" rx="3.3" ry="4.5" fill="#181124"/>
+                    <path d="M32 53 L43 56" stroke="#181124" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M68 53 L57 56" stroke="#181124" stroke-width="2.5" stroke-linecap="round"/>
+                    <ellipse cx="50" cy="64" rx="2.6" ry="2" fill="#ff9ebb"/>
+                    ${showBullseye ? `
+                        <circle cx="50" cy="52" r="17" fill="rgba(46, 242, 216, 0.15)" stroke="#2ef2d8" stroke-width="1.8" stroke-dasharray="4 2"/>
+                        <circle cx="50" cy="52" r="3.5" fill="#2ef2d8"/>
+                    ` : ''}
+                </svg>
+            `,
+            melody: (showBullseye = true) => `
+                <svg viewBox="0 0 100 100" class="w-full h-full overflow-visible drop-shadow-[0_4px_12px_rgba(255,158,187,0.45)]">
+                    <circle cx="50" cy="52" r="44" fill="rgba(255, 158, 187, 0.16)" stroke="#ff9ebb" stroke-width="2"/>
+                    <!-- Orejas largas rosas de My Melody -->
+                    <ellipse cx="30" cy="22" rx="11" ry="20" transform="rotate(-12 30 22)" fill="#ff7aa8" stroke="#ffffff" stroke-width="2.5"/>
+                    <ellipse cx="70" cy="22" rx="11" ry="20" transform="rotate(12 70 22)" fill="#ff7aa8" stroke="#ffffff" stroke-width="2.5"/>
+                    <!-- Capucha rosa -->
+                    <ellipse cx="50" cy="57" rx="35" ry="29" fill="#ff7aa8" stroke="#ffffff" stroke-width="2.5"/>
+                    <!-- Carita blanca -->
+                    <ellipse cx="50" cy="61" rx="24" ry="18" fill="#ffffff"/>
+                    <!-- Florecita blanca/amarilla en la capucha -->
+                    <g transform="translate(68, 36)">
+                        <circle cx="0" cy="-6" r="4.5" fill="#ffffff"/>
+                        <circle cx="6" cy="0" r="4.5" fill="#ffffff"/>
+                        <circle cx="0" cy="6" r="4.5" fill="#ffffff"/>
+                        <circle cx="-6" cy="0" r="4.5" fill="#ffffff"/>
+                        <circle cx="0" cy="0" r="4" fill="#ffd166"/>
+                    </g>
+                    <!-- Ojos tiernos y nariz amarilla -->
+                    <ellipse cx="38" cy="60" rx="3.2" ry="4.2" fill="#231738"/>
+                    <ellipse cx="62" cy="60" rx="3.2" ry="4.2" fill="#231738"/>
+                    <ellipse cx="50" cy="63" rx="3.6" ry="2.6" fill="#ffd166"/>
+                    ${showBullseye ? `
+                        <circle cx="50" cy="52" r="17" fill="rgba(46, 242, 216, 0.15)" stroke="#2ef2d8" stroke-width="1.8" stroke-dasharray="4 2"/>
+                        <circle cx="50" cy="52" r="3.5" fill="#2ef2d8"/>
+                    ` : ''}
+                </svg>
+            `,
+            decoy: () => `
+                <svg viewBox="0 0 100 100" class="w-full h-full overflow-visible decoy-glow">
+                    <circle cx="50" cy="52" r="44" fill="rgba(255, 59, 92, 0.28)" stroke="#ff3b5c" stroke-width="3" stroke-dasharray="6 4"/>
+                    <circle cx="50" cy="52" r="31" fill="#260b17" stroke="#ff3b5c" stroke-width="3"/>
+                    <!-- Ojos en X de Trampa -->
+                    <path d="M33 43 L43 53 M43 43 L33 53" stroke="#ff3b5c" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M57 43 L67 53 M67 43 L57 53" stroke="#ff3b5c" stroke-width="4" stroke-linecap="round"/>
+                    <text x="50" y="73" text-anchor="middle" fill="#ff3b5c" font-size="13" font-weight="900" font-family="Orbitron, sans-serif">TRAMPA</text>
+                </svg>
+            `
+        };
+
+        /**
+         * 2. LOS 7 NIVELES DE DIFICULTAD EXACTOS SOLICITADOS
+         */
+        const DIFFICULTY_LEVELS = [
+            {
+                id: 'muy_facil',
+                name: 'Muy Fácil',
+                badge: '🍓 Calentamiento',
+                valRank: 'Hierro / Bronce Cute',
+                targetSize: 84,
+                lifetimeMs: 2400,
+                totalTargets: 15,
+                maxSimultaneous: 1,
+                spawnDelayMs: 320,
+                strafeSpeed: 0,
+                decoyChance: 0,
+                edgeBias: 0.35,
+                color: 'border-emerald-400 text-emerald-300',
+                desc: 'Objetivos grandes (84px), 2.4s de tiempo, fijos y sin trampas. Ideal para calentar la muñeca.'
+            },
+            {
+                id: 'facil',
+                name: 'Fácil',
+                badge: '🎀 Aim Tierno',
+                valRank: 'Plata Pastel',
+                targetSize: 68,
+                lifetimeMs: 1750,
+                totalTargets: 20,
+                maxSimultaneous: 1,
+                spawnDelayMs: 250,
+                strafeSpeed: 0,
+                decoyChance: 0,
+                edgeBias: 0.55,
+                color: 'border-teal-400 text-teal-300',
+                desc: 'Objetivos medianos (68px), 1.75s de duración, apariciones más abiertas hacia los lados.'
+            },
+            {
+                id: 'normal',
+                name: 'Normal',
+                badge: '⚡ Oro / Platino',
+                valRank: 'Platino Sanrio',
+                targetSize: 56,
+                lifetimeMs: 1250,
+                totalTargets: 25,
+                maxSimultaneous: 1,
+                spawnDelayMs: 180,
+                strafeSpeed: 0,
+                decoyChance: 0,
+                edgeBias: 0.75,
+                color: 'border-radiantCyan text-radiantCyan',
+                desc: 'Tamaño estándar (56px), 1.25s para reaccionar. Apariciones en bordes y esquinas de la pantalla.'
+            },
+            {
+                id: 'dificil',
+                name: 'Difícil',
+                badge: '🔥 Diamante Flicks',
+                valRank: 'Diamante Kuromi',
+                targetSize: 47,
+                lifetimeMs: 920,
+                totalTargets: 30,
+                maxSimultaneous: 1,
+                spawnDelayMs: 130,
+                strafeSpeed: 35,
+                decoyChance: 0.16,
+                edgeBias: 0.88,
+                color: 'border-purple-400 text-purple-300',
+                desc: 'Objetivos de 47px, solo 920ms de vida, flicks periféricos amplios y 16% de probabilidad de Trampa.'
+            },
+            {
+                id: 'muy_dificil',
+                name: 'Muy Difícil',
+                badge: '💜 Ascendente ADAD',
+                valRank: 'Ascendente VIP',
+                targetSize: 39,
+                lifetimeMs: 740,
+                totalTargets: 35,
+                maxSimultaneous: 2,
+                spawnDelayMs: 95,
+                strafeSpeed: 105, // Movimiento lateral estilo peek de Valorant
+                decoyChance: 0.22,
+                edgeBias: 0.92,
+                color: 'border-kuromiPink text-kuromiPink',
+                desc: 'Pequeños (39px), 740ms de vida, movimiento lateral ADAD (Counter-Strafe de Valorant) y trampas.'
+            },
+            {
+                id: 'extremo',
+                name: 'Extremo',
+                badge: '👑 Inmortal',
+                valRank: 'Inmortal Top',
+                targetSize: 32,
+                lifetimeMs: 580,
+                totalTargets: 40,
+                maxSimultaneous: 2,
+                spawnDelayMs: 65,
+                strafeSpeed: 165,
+                decoyChance: 0.28,
+                edgeBias: 0.96,
+                color: 'border-amber-400 text-amber-300',
+                desc: 'Diminutos (32px), 580ms de reacción, hasta 2 objetivos simultáneos en bordes opuestos + strafe rápido.'
+            },
+            {
+                id: 'imposible',
+                name: 'Imposible',
+                badge: '💀✨ RADIANT',
+                valRank: 'RADIANT #1 MUNDIAL 👑',
+                targetSize: 26,
+                lifetimeMs: 440,
+                totalTargets: 45,
+                maxSimultaneous: 3,
+                spawnDelayMs: 40,
+                strafeSpeed: 235,
+                decoyChance: 0.32,
+                edgeBias: 1.0,
+                color: 'border-kittyRed text-kittyRed',
+                desc: '¡Reto sobrehumano (26px y 440ms)! Jiggle-peek ultra veloz en las esquinas extremas. ¡Solo para mi bb pro!'
+            }
+        ];
+
+        /**
+         * 3. LOS 3 MODOS DE ENTRENAMIENTO TÁCTICO
+         */
+        const GAME_MODES = [
+            {
+                id: 'peripheral_flicks',
+                name: 'Flicks Periféricos',
+                subtitle: 'Centro ➔ Bordes / Esquinas',
+                icon: '🧭',
+                desc: 'Alterna un objetivo en el centro y el siguiente en un borde o esquina lejana de la pantalla con radar direccional.'
+            },
+            {
+                id: 'grid_burst',
+                name: 'Ráfaga Multi-Zona',
+                subtitle: 'Visión Periférica Total',
+                icon: '⚡',
+                desc: 'Los personajes aparecen por todo el alrededor de la pantalla sin pausa para entrenar reacción pura y cambio de objetivo.'
+            },
+            {
+                id: 'onetap_vandal',
+                name: 'Un Tap Vandal (HS)',
+                subtitle: 'Micro-Ajuste + ADAD Strafe',
+                icon: '🎯',
+                desc: 'Objetivos un 15% más pequeños con movimiento lateral de Valorant. ¡Los Headshots en el centro valen el doble!'
+            }
+        ];
+
+        const LOVE_CHEERS = [
+            '💜 Q buen flick mi amor!',
+            '🎯 Puro talento mi bb!',
+            '👑 Horcus no es nada a tu lado mi vida!',
+            '🍓 Se me cayo la ropa!',
+            '🎀 Que rico pega mi mujer!',
+            '✨ ¡Demasiado buena mamolchito!'
+        ];
+
+        /**
+         * 4. ESTADO GLOBAL DE LA SESIÓN
+         */
+        let state = {
+            selectedDiffId: 'normal',
+            selectedModeId: 'peripheral_flicks',
+            crosshair: 'pro',
+            sound: true,
+            isPlaying: false,
+
+            // Contadores de ronda
+            targetsSpawned: 0,
+            targetsResolved: 0,
+            hits: 0,
+            headshots: 0,
+            misses: 0,
+            streak: 0,
+            bestStreak: 0,
+            score: 0,
+            reactionTimes: [], // en ms
+            expectCenterNext: true, // Para el modo Flicks Periféricos
+
+            activeTargets: [], // Lista de objetos activos en el DOM
+            nextTargetId: 1
+        };
+
+        /**
+         * 5. MOTOR DE SONIDO ESTILO VALORANT (Kill Chimes & Ace)
+         */
+        let audioCtx = null;
+        function playValorantSound(type, streakCount = 1) {
+            if (!state.sound) return;
+            try {
+                if (!audioCtx) {
+                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                    if (AudioContextClass) audioCtx = new AudioContextClass();
+                }
+                if (!audioCtx) return;
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'headshot' || type === 'hit') {
+                    // Escala ascendente según la racha (1K, 2K, 3K, 4K, ACE)
+                    const pitchScale = [1, 1.12, 1.26, 1.42, 1.68];
+                    const mult = pitchScale[Math.min(4, Math.max(0, streakCount - 1))];
+                    const baseFreq = type === 'headshot' ? 920 * mult : 640 * mult;
+
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = type === 'headshot' ? 'triangle' : 'sine';
+                    osc.frequency.setValueAtTime(baseFreq, now);
+                    osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.45, now + 0.085);
+
+                    gain.gain.setValueAtTime(0.14, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.15);
+
+                    // Si es ACE (racha >= 5) y Headshot, añadir acorde brillante
+                    if (streakCount >= 5 && type === 'headshot') {
+                        [1318.5, 1567.98, 2093].forEach((freq, idx) => {
+                            const o2 = audioCtx.createOscillator();
+                            const g2 = audioCtx.createGain();
+                            o2.type = 'sine';
+                            o2.frequency.setValueAtTime(freq, now + idx * 0.035);
+                            g2.gain.setValueAtTime(0.08, now + idx * 0.035);
+                            g2.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.035 + 0.22);
+                            o2.connect(g2);
+                            g2.connect(audioCtx.destination);
+                            o2.start(now + idx * 0.035);
+                            o2.stop(now + idx * 0.035 + 0.23);
+                        });
+                    }
+                } else if (type === 'miss' || type === 'decoy') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(210, now);
+                    osc.frequency.linearRampToValueAtTime(130, now + 0.15);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.17);
+                } else if (type === 'countdown') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(520, now);
+                    gain.gain.setValueAtTime(0.09, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.1);
+                }
+            } catch (e) {}
+        }
+
+        /**
+         * 6. INICIALIZACIÓN DE INTERFAZ Y SELECTORES
+         */
+        function initUI() {
+            // Renderizar iconos en la leyenda y en el modal
+            document.getElementById('legend-kitty').innerHTML = CHARACTER_SVGS.kitty(false);
+            document.getElementById('legend-kuromi').innerHTML = CHARACTER_SVGS.kuromi(false);
+            document.getElementById('legend-melody').innerHTML = CHARACTER_SVGS.melody(false);
+            document.getElementById('legend-decoy').innerHTML = CHARACTER_SVGS.decoy();
+
+            document.getElementById('modal-avatar-kitty').innerHTML = CHARACTER_SVGS.kitty(false);
+            document.getElementById('modal-avatar-kuromi').innerHTML = CHARACTER_SVGS.kuromi(false);
+            document.getElementById('modal-avatar-melody').innerHTML = CHARACTER_SVGS.melody(false);
+
+            renderModesSelector();
+            renderDifficultiesSelector();
+            renderKillBannerPips();
+        }
+
+        function renderModesSelector() {
+            const container = document.getElementById('modes-grid');
+            container.innerHTML = '';
+
+            GAME_MODES.forEach(mode => {
+                const active = state.selectedModeId === mode.id;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `p-3 rounded-2xl text-left transition border-2 ${
+                    active
+                        ? 'bg-kuromiPink/15 border-kuromiPink shadow-lg'
+                        : 'bg-valBg/85 border-valBorder hover:border-lilacGlow/50'
+                }`;
+                btn.innerHTML = `
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-display font-black text-sm text-white">${mode.icon} ${mode.name}</span>
+                        ${active ? '<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-kuromiPink text-white">ACTIVO</span>' : ''}
+                    </div>
+                    <div class="text-[11px] font-bold text-radiantCyan mb-1">${mode.subtitle}</div>
+                    <p class="text-[11px] text-lilacGlow/80 leading-snug">${mode.desc}</p>
+                `;
+                btn.addEventListener('click', () => {
+                    state.selectedModeId = mode.id;
+                    renderModesSelector();
+                });
+                container.appendChild(btn);
+            });
+        }
+
+        function renderDifficultiesSelector() {
+            const container = document.getElementById('difficulties-grid');
+            container.innerHTML = '';
+
+            DIFFICULTY_LEVELS.forEach(diff => {
+                const active = state.selectedDiffId === diff.id;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `p-2.5 rounded-2xl text-center transition border-2 flex flex-col items-center justify-between ${
+                    active
+                        ? 'bg-kuromiPink/20 border-kuromiPink shadow-lg scale-[1.02]'
+                        : 'bg-valBg/85 border-valBorder hover:border-lilacGlow/40 opacity-85 hover:opacity-100'
+                }`;
+                btn.innerHTML = `
+                    <div class="text-[10px] font-extrabold text-melodyPink truncate w-full">${diff.badge}</div>
+                    <div class="font-display font-black text-xs sm:text-sm text-white my-1">${diff.name}</div>
+                    <div class="text-[10px] font-tac font-bold text-radiantCyan">${diff.lifetimeMs}ms</div>
+                `;
+                btn.addEventListener('click', () => {
+                    state.selectedDiffId = diff.id;
+                    renderDifficultiesSelector();
+                });
+                container.appendChild(btn);
+            });
+
+            // Actualizar caja de detalles de la dificultad
+            const currentDiff = getSelectedDifficulty();
+            const detailsBox = document.getElementById('diff-details-box');
+            detailsBox.innerHTML = `
+                <div class="flex-1">
+                    <div class="flex items-center gap-2">
+                        <span class="font-display font-black text-sm text-white">${currentDiff.name} (${currentDiff.badge})</span>
+                        <span class="text-[10px] font-tac px-2 py-0.5 rounded bg-valCard text-radiantGold border border-valBorder">
+                            Rango: ${currentDiff.valRank}
+                        </span>
+                    </div>
+                    <p class="text-xs text-lilacGlow/90 mt-1">${currentDiff.desc}</p>
+                </div>
+                <div class="flex items-center gap-3 text-[11px] font-tac bg-valCard px-3 py-2 rounded-xl border border-valBorder">
+                    <div>Tamaño: <strong class="text-white">${currentDiff.targetSize}px</strong></div>
+                    <div>Tiempo: <strong class="text-radiantCyan">${currentDiff.lifetimeMs}ms</strong></div>
+                    <div>Objetivos: <strong class="text-kuromiPink">${currentDiff.totalTargets}</strong></div>
+                </div>
+            `;
+        }
+
+        function getSelectedDifficulty() {
+            return DIFFICULTY_LEVELS.find(d => d.id === state.selectedDiffId) || DIFFICULTY_LEVELS[2];
+        }
+
+        function getSelectedMode() {
+            return GAME_MODES.find(m => m.id === state.selectedModeId) || GAME_MODES[0];
+        }
+
+        window.setCrosshair = function(type) {
+            state.crosshair = type;
+            const arena = document.getElementById('arena-container');
+            arena.classList.remove('crosshair-pro', 'crosshair-dot', 'crosshair-sanrio');
+            arena.classList.add(`crosshair-${type}`);
+
+            ['pro', 'dot', 'sanrio'].forEach(t => {
+                const btn = document.getElementById(`ch-btn-${t}`);
+                if (!btn) return;
+                if (t === type) {
+                    btn.className = 'px-2 py-1 rounded-lg bg-kuromiPink text-white transition';
+                } else {
+                    btn.className = 'px-2 py-1 rounded-lg text-lilacGlow hover:text-white transition';
+                }
+            });
+        };
+
+        /**
+         * 7. FLUJO DE LA PARTIDA Y POSICIONAMIENTO PERIFÉRICO ALREDEDOR DE LA PANTALLA
+         */
+        function startRoundWithCountdown() {
+            document.getElementById('setup-modal').classList.add('hidden');
+            document.getElementById('results-modal').classList.add('hidden');
+
+            const diff = getSelectedDifficulty();
+            const mode = getSelectedMode();
+
+            // Reiniciar estadísticas
+            state.isPlaying = false;
+            state.targetsSpawned = 0;
+            state.targetsResolved = 0;
+            state.hits = 0;
+            state.headshots = 0;
+            state.misses = 0;
+            state.streak = 0;
+            state.bestStreak = 0;
+            state.score = 0;
+            state.reactionTimes = [];
+            state.expectCenterNext = true;
+            state.activeTargets = [];
+
+            document.getElementById('targets-layer').innerHTML = '';
+            document.getElementById('fx-layer').innerHTML = '';
+            document.getElementById('radar-arrow-wrapper').classList.add('hidden');
+
+            document.getElementById('active-diff-pill').textContent = `${diff.name} ${diff.badge.split(' ')[0]}`;
+            document.getElementById('hud-mode-tag').textContent = mode.name.split(' ')[0];
+            updateHUD();
+            renderKillBannerPips();
+
+            // Mostrar cuenta regresiva 3, 2, 1
+            const overlay = document.getElementById('countdown-overlay');
+            const numEl = document.getElementById('countdown-number');
+            overlay.classList.remove('hidden');
+
+            let count = 3;
+            numEl.textContent = count;
+            playValorantSound('countdown');
+
+            const timer = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    numEl.textContent = count;
+                    playValorantSound('countdown');
+                } else if (count === 0) {
+                    numEl.textContent = '¡LISTA MI REINA!';
+                    playValorantSound('headshot', 3);
+                } else {
+                    clearInterval(timer);
+                    overlay.classList.add('hidden');
+                    state.isPlaying = true;
+                    scheduleNextSpawns();
+                }
+            }, 650);
+        }
+
+        /**
+         * Calcula coordenadas (x, y) priorizando los bordes y esquinas de la pantalla
+         * para entrenar flicks periféricos reales de Valorant.
+         */
+        function computePeripheralPosition(arenaWidth, arenaHeight, radius, forceCenter = false) {
+            const padX = radius + 18;
+            const padY = radius + 24;
+            const minX = padX;
+            const maxX = Math.max(padX + 20, arenaWidth - padX);
+            const minY = padY;
+            const maxY = Math.max(padY + 20, arenaHeight - padY);
+
+            const centerX = arenaWidth / 2;
+            const centerY = arenaHeight / 2;
+
+            if (forceCenter) {
+                return {
+                    x: centerX + (Math.random() - 0.5) * 28,
+                    y: centerY + (Math.random() - 0.5) * 28
+                };
+            }
+
+            const diff = getSelectedDifficulty();
+            // 8 Zonas Periféricas alrededor de la pantalla (4 esquinas + 4 bordes)
+            const usePeripheralZone = Math.random() < diff.edgeBias || state.selectedModeId === 'peripheral_flicks';
+
+            if (usePeripheralZone) {
+                const zones = [
+                    // Esquina Superior Izquierda
+                    { xRange: [minX, minX + (arenaWidth * 0.22)], yRange: [minY, minY + (arenaHeight * 0.24)] },
+                    // Esquina Superior Derecha
+                    { xRange: [maxX - (arenaWidth * 0.22), maxX], yRange: [minY, minY + (arenaHeight * 0.24)] },
+                    // Esquina Inferior Izquierda
+                    { xRange: [minX, minX + (arenaWidth * 0.22)], yRange: [maxY - (arenaHeight * 0.24), maxY] },
+                    // Esquina Inferior Derecha
+                    { xRange: [maxX - (arenaWidth * 0.22), maxX], yRange: [maxY - (arenaHeight * 0.24), maxY] },
+                    // Borde Izquierdo Medio
+                    { xRange: [minX, minX + (arenaWidth * 0.18)], yRange: [minY + arenaHeight * 0.2, maxY - arenaHeight * 0.2] },
+                    // Borde Derecho Medio
+                    { xRange: [maxX - (arenaWidth * 0.18), maxX], yRange: [minY + arenaHeight * 0.2, maxY - arenaHeight * 0.2] },
+                    // Borde Superior Medio
+                    { xRange: [minX + arenaWidth * 0.22, maxX - arenaWidth * 0.22], yRange: [minY, minY + (arenaHeight * 0.18)] },
+                    // Borde Inferior Medio
+                    { xRange: [minX + arenaWidth * 0.22, maxX - arenaWidth * 0.22], yRange: [maxY - (arenaHeight * 0.18), maxY] }
+                ];
+
+                const chosen = zones[Math.floor(Math.random() * zones.length)];
+                const x = chosen.xRange[0] + Math.random() * Math.max(1, chosen.xRange[1] - chosen.xRange[0]);
+                const y = chosen.yRange[0] + Math.random() * Math.max(1, chosen.yRange[1] - chosen.yRange[0]);
+                return { x, y };
+            }
+
+            // Posición aleatoria en cualquier punto de la arena
+            return {
+                x: minX + Math.random() * (maxX - minX),
+                y: minY + Math.random() * (maxY - minY)
+            };
+        }
+
+        function scheduleNextSpawns() {
+            if (!state.isPlaying) return;
+            const diff = getSelectedDifficulty();
+
+            const realActiveCount = state.activeTargets.filter(t => !t.isDecoy).length;
+            const maxAllowed = state.selectedModeId === 'peripheral_flicks' ? 1 : diff.maxSimultaneous;
+
+            if (realActiveCount < maxAllowed && state.targetsSpawned < diff.totalTargets) {
+                spawnSingleTarget(false);
+
+                // ¿Generar objetivo Trampa (Decoy) simultáneo en dificultades altas?
+                if (diff.decoyChance > 0 && Math.random() < diff.decoyChance) {
+                    spawnSingleTarget(true);
+                }
+            }
+        }
+
+        function spawnSingleTarget(isDecoy = false) {
+            if (!state.isPlaying) return;
+            const arena = document.getElementById('arena-container');
+            const rect = arena.getBoundingClientRect();
+            const diff = getSelectedDifficulty();
+            const mode = getSelectedMode();
+
+            // Ajustar tamaño si está en modo Un Tap Vandal
+            let size = diff.targetSize;
+            if (mode.id === 'onetap_vandal') {
+                size = Math.max(22, Math.round(size * 0.86));
+            }
+            const radius = size / 2;
+
+            // Determinar si toca centro o periferia (en modo Flicks Periféricos)
+            let forceCenter = false;
+            if (!isDecoy && mode.id === 'peripheral_flicks') {
+                forceCenter = state.expectCenterNext;
+                state.expectCenterNext = !state.expectCenterNext;
+            }
+
+            const pos = computePeripheralPosition(rect.width, rect.height, radius, forceCenter);
+
+            // Elegir personaje Sanrio
+            const charKeys = ['kitty', 'kuromi', 'melody'];
+            const charKey = isDecoy ? 'decoy' : charKeys[Math.floor(Math.random() * charKeys.length)];
+
+            const targetId = state.nextTargetId++;
+            if (!isDecoy) {
+                state.targetsSpawned++;
+            }
+
+            // Velocidad de Strafe Horizontal (ADAD de Valorant)
+            let vx = 0;
+            let vy = 0;
+            const baseStrafe = mode.id === 'onetap_vandal' ? Math.max(75, diff.strafeSpeed) : diff.strafeSpeed;
+            if (!isDecoy && baseStrafe > 0 && !forceCenter) {
+                vx = (Math.random() < 0.5 ? -1 : 1) * baseStrafe;
+                if (diff.id === 'imposible') {
+                    vy = (Math.random() < 0.5 ? -1 : 1) * (baseStrafe * 0.45);
+                }
+            }
+
+            const node = document.createElement('div');
+            node.className = 'target-node select-none';
+            node.style.width = `${size}px`;
+            node.style.height = `${size}px`;
+            node.style.left = `${pos.x}px`;
+            node.style.top = `${pos.y}px`;
+
+            // Anillo temporizador circular que se encoge alrededor del objetivo
+            node.innerHTML = `
+                <div class="relative w-full h-full flex items-center justify-center">
+                    <svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 100 100">
+                        <circle id="ring-${targetId}" cx="50" cy="50" r="47" fill="none"
+                            stroke="${isDecoy ? '#ff3b5c' : '#2ef2d8'}"
+                            stroke-width="3.5"
+                            stroke-dasharray="295"
+                            stroke-dashoffset="0" />
+                    </svg>
+                    <div class="w-full h-full pointer-events-none">
+                        ${CHARACTER_SVGS[charKey](!isDecoy)}
+                    </div>
+                </div>
+            `;
+
+            const targetObj = {
+                id: targetId,
+                isDecoy,
+                charKey,
+                x: pos.x,
+                y: pos.y,
+                vx,
+                vy,
+                size,
+                radius,
+                spawnTime: performance.now(),
+                lifetimeMs: isDecoy ? diff.lifetimeMs * 0.95 : diff.lifetimeMs,
+                directionFlipTimer: 0.28 + Math.random() * 0.25,
+                node
+            };
+
+            // Evento de Disparo Instantáneo (pointerdown para 0ms de retraso)
+            node.addEventListener('pointerdown', (e) => {
+                e.stopPropagation();
+                handleTargetShot(targetObj, e);
+            });
+
+            document.getElementById('targets-layer').appendChild(node);
+            state.activeTargets.push(targetObj);
+
+            updateRadarArrow();
+            updateHUD();
+        }
+
+        /**
+         * Actualiza la flecha del radar central para guiar la visión periférica de Maryorit
+         */
+        function updateRadarArrow() {
+            const arrowWrapper = document.getElementById('radar-arrow-wrapper');
+            const realTargets = state.activeTargets.filter(t => !t.isDecoy);
+
+            if (realTargets.length === 0) {
+                arrowWrapper.classList.add('hidden');
+                return;
+            }
+
+            const arena = document.getElementById('arena-container');
+            const rect = arena.getBoundingClientRect();
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
+
+            const primary = realTargets[0];
+            const dx = primary.x - cx;
+            const dy = primary.y - cy;
+            const dist = Math.hypot(dx, dy);
+
+            if (dist < 65) {
+                arrowWrapper.classList.add('hidden');
+                return;
+            }
+
+            const angleDeg = (Math.atan2(dy, dx) * 180) / Math.PI + 90;
+            arrowWrapper.classList.remove('hidden');
+            arrowWrapper.style.transform = `rotate(${angleDeg}deg)`;
+        }
+
+        /**
+         * 8. PROCESAMIENTO DE DISPAROS (HEADSHOTS, TIEMPO EN MS Y RACHAS)
+         */
+        function handleTargetShot(targetObj, evt) {
+            if (!state.isPlaying) return;
+
+            const now = performance.now();
+            const reactionMs = Math.max(75, Math.round(now - targetObj.spawnTime));
+
+            // Eliminar objetivo del DOM y de la lista activa
+            removeActiveTarget(targetObj.id);
+
+            // Si disparó a una Calaverita Trampa (Decoy)
+            if (targetObj.isDecoy) {
+                state.misses++;
+                state.streak = 0;
+                state.score = Math.max(0, state.score - 250);
+                playValorantSound('decoy');
+                spawnFeedback(targetObj.x, targetObj.y, '💀 ¡TRAMPA! -250', 'text-kittyRed');
+                spawnRipple(targetObj.x, targetObj.y, '#ff3b5c');
+                updateHUD();
+                renderKillBannerPips();
+                checkRoundEndOrContinue();
+                return;
+            }
+
+            // Calcular distancia exacta del clic al centro del personaje Sanrio para detectar HEADSHOT
+            const rect = targetObj.node.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const clickDist = Math.hypot(evt.clientX - centerX, evt.clientY - centerY);
+
+            // Dentro del 44% central del radio cuenta como Headshot (Un Tap)
+            const isHeadshot = clickDist <= targetObj.radius * 0.48;
+
+            state.targetsResolved++;
+            state.hits++;
+            if (isHeadshot) state.headshots++;
+            state.streak++;
+            state.bestStreak = Math.max(state.bestStreak, state.streak);
+            state.reactionTimes.push(reactionMs);
+
+            // Puntuación basada en velocidad (ms), Headshot y racha
+            const speedBonus = Math.max(100, Math.round(1400 - reactionMs * 1.15));
+            const hsMult = isHeadshot ? 1.5 : 1.0;
+            const gained = Math.round(speedBonus * hsMult);
+            state.score += gained;
+
+            // Sonido Valorant
+            playValorantSound(isHeadshot ? 'headshot' : 'hit', state.streak);
+
+            // Color del texto según los milisegundos de reacción
+            let msColor = 'text-radiantCyan';
+            if (reactionMs <= 240) msColor = 'text-radiantGold';
+            else if (reactionMs > 450) msColor = 'text-melodyPink';
+
+            const label = isHeadshot
+                ? `💥 HEADSHOT! ${reactionMs}ms`
+                : `✓ ${reactionMs}ms`;
+
+            spawnFeedback(targetObj.x, targetObj.y, label, isHeadshot ? 'text-radiantCyan' : msColor);
+            spawnRipple(targetObj.x, targetObj.y, isHeadshot ? '#2ef2d8' : '#ff4da6');
+
+            // Mostrar mensajito romántico cada 4 aciertos seguidos
+            if (state.streak > 0 && state.streak % 4 === 0) {
+                showLoveCheer();
+            }
+
+            updateHUD(reactionMs);
+            renderKillBannerPips();
+            checkRoundEndOrContinue();
+        }
+
+        // Clic en el vacío de la arena (Fallo de puntería)
+        document.getElementById('arena-container').addEventListener('pointerdown', (e) => {
+            if (!state.isPlaying) return;
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            state.misses++;
+            state.streak = 0;
+            state.score = Math.max(0, state.score - 80);
+            playValorantSound('miss');
+            spawnFeedback(x, y, '✕ FALLO -80', 'text-kittyRed');
+            spawnRipple(x, y, '#ff3b5c');
+            updateHUD();
+            renderKillBannerPips();
+        });
+
+        function removeActiveTarget(id) {
+            const idx = state.activeTargets.findIndex(t => t.id === id);
+            if (idx !== -1) {
+                const t = state.activeTargets[idx];
+                if (t.node && t.node.parentNode) {
+                    t.node.remove();
+                }
+                state.activeTargets.splice(idx, 1);
+            }
+            updateRadarArrow();
+        }
+
+        function checkRoundEndOrContinue() {
+            const diff = getSelectedDifficulty();
+            const remainingReal = state.activeTargets.filter(t => !t.isDecoy).length;
+
+            if (state.targetsResolved >= diff.totalTargets && remainingReal === 0) {
+                finishRound();
+            } else {
+                setTimeout(() => scheduleNextSpawns(), diff.spawnDelayMs);
+            }
+        }
+
+        /**
+         * 9. BUCLE DE ANIMACIÓN A 60FPS (MOVIMIENTO ADAD Y EXPIRACIÓN DE TIEMPO)
+         */
+        let lastTick = performance.now();
+
+        function arenaLoop(now) {
+            const dt = Math.min(0.08, (now - lastTick) / 1000);
+            lastTick = now;
+
+            if (state.isPlaying && state.activeTargets.length > 0) {
+                const arena = document.getElementById('arena-container');
+                const rect = arena.getBoundingClientRect();
+
+                for (let i = state.activeTargets.length - 1; i >= 0; i--) {
+                    const t = state.activeTargets[i];
+                    const elapsed = now - t.spawnTime;
+                    const progress = elapsed / t.lifetimeMs;
+
+                    // Actualizar anillo de tiempo restante
+                    const ring = document.getElementById(`ring-${t.id}`);
+                    if (ring) {
+                        const offset = Math.min(295, Math.round(progress * 295));
+                        ring.setAttribute('stroke-dashoffset', offset);
+                    }
+
+                    // Movimiento lateral ADAD (Counter-strafe de Valorant)
+                    if (t.vx !== 0 || t.vy !== 0) {
+                        t.directionFlipTimer -= dt;
+                        if (t.directionFlipTimer <= 0) {
+                            // Simula el jiggle peek cambiando de dirección
+                            if (Math.random() < 0.75) t.vx = -t.vx;
+                            t.directionFlipTimer = 0.25 + Math.random() * 0.35;
+                        }
+
+                        t.x += t.vx * dt;
+                        t.y += t.vy * dt;
+
+                        const pad = t.radius + 14;
+                        if (t.x < pad) { t.x = pad; t.vx = Math.abs(t.vx); }
+                        if (t.x > rect.width - pad) { t.x = rect.width - pad; t.vx = -Math.abs(t.vx); }
+                        if (t.y < pad) { t.y = pad; t.vy = Math.abs(t.vy); }
+                        if (t.y > rect.height - pad) { t.y = rect.height - pad; t.vy = -Math.abs(t.vy); }
+
+                        t.node.style.left = `${t.x}px`;
+                        t.node.style.top = `${t.y}px`;
+                    }
+
+                    // ¿Se agotó el tiempo de vida del objetivo?
+                    if (elapsed >= t.lifetimeMs) {
+                        removeActiveTarget(t.id);
+                        if (!t.isDecoy) {
+                            state.targetsResolved++;
+                            state.misses++;
+                            state.streak = 0;
+                            playValorantSound('miss');
+                            spawnFeedback(t.x, t.y, '⏱️ ¡MUY LENTO!', 'text-kittyRed');
+                            updateHUD();
+                            renderKillBannerPips();
+                        }
+                        checkRoundEndOrContinue();
+                    }
+                }
+                updateRadarArrow();
+            }
+
+            requestAnimationFrame(arenaLoop);
+        }
+
+        /**
+         * 10. EFECTOS VISUALES Y ACTUALIZACIÓN DEL HUD
+         */
+        function spawnFeedback(x, y, text, colorClass) {
+            const layer = document.getElementById('fx-layer');
+            const el = document.createElement('div');
+            el.className = `floating-feedback font-tac font-black text-xs sm:text-sm px-2.5 py-0.5 rounded-lg bg-valBg/90 border border-white/15 shadow-lg whitespace-nowrap ${colorClass}`;
+            el.style.left = `${x}px`;
+            el.style.top = `${y}px`;
+            el.textContent = text;
+            layer.appendChild(el);
+            setTimeout(() => el.remove(), 780);
+        }
+
+        function spawnRipple(x, y, colorHex) {
+            const layer = document.getElementById('fx-layer');
+            const ring = document.createElement('div');
+            ring.className = 'hit-ripple w-14 h-14';
+            ring.style.left = `${x}px`;
+            ring.style.top = `${y}px`;
+            ring.style.border = `2.5px solid ${colorHex}`;
+            layer.appendChild(ring);
+            setTimeout(() => ring.remove(), 380);
+        }
+
+        function showLoveCheer() {
+            const banner = document.getElementById('love-cheer-banner');
+            const msg = LOVE_CHEERS[Math.floor(Math.random() * LOVE_CHEERS.length)];
+            banner.textContent = msg;
+            banner.classList.remove('opacity-0');
+            banner.classList.add('opacity-100');
+            clearTimeout(banner._hideTimer);
+            banner._hideTimer = setTimeout(() => {
+                banner.classList.remove('opacity-100');
+                banner.classList.add('opacity-0');
+            }, 1600);
+        }
+
+        function renderKillBannerPips() {
+            const container = document.getElementById('kill-banner-pips');
+            container.innerHTML = '';
+            const numerals = ['I', 'II', 'III', 'IV', 'ACE 👑'];
+
+            numerals.forEach((label, idx) => {
+                const achieved = state.streak >= idx + 1;
+                const pill = document.createElement('div');
+                pill.className = `px-2.5 py-0.5 rounded-md font-tac font-black text-[10px] transition-all duration-150 border ${
+                    achieved
+                        ? idx === 4
+                            ? 'bg-gradient-to-r from-kuromiPink to-radiantGold text-valBg border-white scale-110 shadow-[0_0_15px_rgba(255,209,102,0.8)]'
+                            : 'bg-radiantCyan/25 text-radiantCyan border-radiantCyan'
+                        : 'bg-valBg/70 text-lilacGlow/35 border-valBorder/50'
+                }`;
+                pill.textContent = label;
+                container.appendChild(pill);
+            });
+        }
+
+        function updateHUD(latestMs = null) {
+            const diff = getSelectedDifficulty();
+
+            // Último Flick (ms)
+            const lastMsEl = document.getElementById('hud-last-ms');
+            const msBadgeEl = document.getElementById('hud-ms-badge');
+            if (latestMs !== null) {
+                lastMsEl.textContent = `${latestMs} ms`;
+                if (latestMs <= 230) {
+                    msBadgeEl.textContent = 'RADIANT ⚡';
+                    msBadgeEl.className = 'text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-radiantGold/20 text-radiantGold border border-radiantGold/50';
+                } else if (latestMs <= 340) {
+                    msBadgeEl.textContent = 'INMORTAL 🔥';
+                    msBadgeEl.className = 'text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-radiantCyan/20 text-radiantCyan border border-radiantCyan/40';
+                } else if (latestMs <= 480) {
+                    msBadgeEl.textContent = 'BUEN AIM ✨';
+                    msBadgeEl.className = 'text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-kuromiPink/20 text-kuromiPink border border-kuromiPink/40';
+                } else {
+                    msBadgeEl.textContent = 'CALENTANDO';
+                    msBadgeEl.className = 'text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-valCard text-melodyPink border border-valBorder';
+                }
+            } else if (state.reactionTimes.length === 0) {
+                lastMsEl.textContent = '--- ms';
+                msBadgeEl.textContent = 'LISTA';
+            }
+
+            // Promedio y Mejor ms
+            const avgEl = document.getElementById('hud-avg-ms');
+            const bestEl = document.getElementById('hud-best-ms');
+            if (state.reactionTimes.length > 0) {
+                const sum = state.reactionTimes.reduce((a, b) => a + b, 0);
+                const avg = Math.round(sum / state.reactionTimes.length);
+                const best = Math.min(...state.reactionTimes);
+                avgEl.textContent = `${avg} ms`;
+                bestEl.textContent = `${best} ms`;
+            } else {
+                avgEl.textContent = '--- ms';
+                bestEl.textContent = '---';
+            }
+
+            // Precisión y Headshot %
+            const totalAttempts = state.hits + state.misses;
+            const acc = totalAttempts > 0 ? Math.round((state.hits / totalAttempts) * 100) : 100;
+            const hsPct = state.hits > 0 ? Math.round((state.headshots / state.hits) * 100) : 0;
+
+            document.getElementById('hud-acc').textContent = `${acc}%`;
+            document.getElementById('hud-hs').textContent = `${hsPct}%`;
+
+            // Objetivos y Racha
+            document.getElementById('hud-hits').textContent = state.targetsResolved;
+            document.getElementById('hud-total').textContent = diff.totalTargets;
+            document.getElementById('hud-streak').textContent = `${state.streak} 🔥`;
+            document.getElementById('hud-score').textContent = state.score.toLocaleString('es-PE');
+        }
+
+        /**
+         * 11. PANTALLA DE RESULTADOS AL TERMINAR LA RONDA
+         */
+        function finishRound() {
+            state.isPlaying = false;
+            state.activeTargets.forEach(t => t.node && t.node.remove());
+            state.activeTargets = [];
+            updateRadarArrow();
+
+            const diff = getSelectedDifficulty();
+            const mode = getSelectedMode();
+
+            const avgMs = state.reactionTimes.length > 0
+                ? Math.round(state.reactionTimes.reduce((a, b) => a + b, 0) / state.reactionTimes.length)
+                : 0;
+            const bestMs = state.reactionTimes.length > 0
+                ? Math.min(...state.reactionTimes)
+                : 0;
+
+            const totalAttempts = state.hits + state.misses;
+            const acc = totalAttempts > 0 ? Math.round((state.hits / totalAttempts) * 100) : 0;
+            const hsPct = state.hits > 0 ? Math.round((state.headshots / state.hits) * 100) : 0;
+
+            // Determinar título de rango según precisión y velocidad
+            let rankTitle = 'DIAMANTE SANRIO 💜';
+            if (diff.id === 'imposible' && acc >= 60) {
+                rankTitle = '👑 DIOSA RADIANT #1 (Tu nivel bb)';
+            } else if (avgMs > 0 && avgMs <= 265 && acc >= 82) {
+                rankTitle = '👑 RADIANT SUPREMA';
+            } else if (avgMs > 0 && avgMs <= 340 && acc >= 75) {
+                rankTitle = '🔥 INMORTAL KUROMI AIM';
+            } else if (acc >= 70) {
+                rankTitle = '✨ ASCENDENTE HELLO KITTY';
+            }
+
+            document.getElementById('res-rank-title').textContent = rankTitle;
+            document.getElementById('res-subtitle').textContent = `Dificultad: ${diff.name} • ${mode.name}`;
+            document.getElementById('res-avg-ms').textContent = avgMs > 0 ? `${avgMs} ms` : '---';
+            document.getElementById('res-best-ms').textContent = bestMs > 0 ? `${bestMs} ms` : '---';
+            document.getElementById('res-acc').textContent = `${acc}%`;
+            document.getElementById('res-hs').textContent = `${hsPct}%`;
+            document.getElementById('res-score-pill').textContent = `${state.score.toLocaleString('es-PE')} pts`;
+
+            // Renderizar barras del gráfico de milisegundos
+            const chartContainer = document.getElementById('res-chart-bars');
+            chartContainer.innerHTML = '';
+            const sample = state.reactionTimes.slice(-28);
+
+            if (sample.length === 0) {
+                chartContainer.innerHTML = `<div class="text-xs text-lilacGlow/60 m-auto">No se registraron impactos en esta ronda.</div>`;
+            } else {
+                const maxVal = Math.max(600, ...sample);
+                sample.forEach(ms => {
+                    const bar = document.createElement('div');
+                    const heightPct = Math.max(18, Math.min(100, Math.round((ms / maxVal) * 100)));
+                    let color = 'bg-kuromiPink';
+                    if (ms <= 250) color = 'bg-radiantGold';
+                    else if (ms <= 360) color = 'bg-radiantCyan';
+
+                    bar.className = `flex-1 rounded-t ${color} transition-all`;
+                    bar.style.height = `${heightPct}%`;
+                    bar.title = `${ms} ms`;
+                    chartContainer.appendChild(bar);
+                });
+            }
+
+            playValorantSound('headshot', 5);
+            document.getElementById('results-modal').classList.remove('hidden');
+        }
+
+        /**
+         * 12. EVENTOS DE BOTONES DE NAVEGACIÓN
+         */
+        document.getElementById('start-training-btn').addEventListener('click', () => {
+            startRoundWithCountdown();
+        });
+
+        document.getElementById('open-config-btn').addEventListener('click', () => {
+            state.isPlaying = false;
+            document.getElementById('setup-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('restart-quick-btn').addEventListener('click', () => {
+            startRoundWithCountdown();
+        });
+
+        document.getElementById('sound-toggle-btn').addEventListener('click', () => {
+            state.sound = !state.sound;
+            document.getElementById('sound-toggle-btn').textContent = state.sound ? '🔊' : '🔇';
+        });
+
+        document.getElementById('res-change-diff-btn').addEventListener('click', () => {
+            document.getElementById('results-modal').classList.add('hidden');
+            document.getElementById('setup-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('res-play-again-btn').addEventListener('click', () => {
+            startRoundWithCountdown();
+        });
+
+        // Iniciar al cargar la ventana
+        window.onload = () => {
+            initUI();
+            requestAnimationFrame(arenaLoop);
+        };
+    </script>
+</body>
+</html>
